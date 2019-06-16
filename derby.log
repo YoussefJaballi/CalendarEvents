@@ -1,0 +1,13 @@
+----------------------------------------------------------------
+Sun Jun 16 17:49:03 CEST 2019:
+Booting Derby version The Apache Software Foundation - Apache Derby - 10.13.1.1 - (1765088): instance a816c00e-016b-60fa-462b-00000ce165f8 
+on database directory C:\Users\yjaballi\Documents\Calendar\AcademicCalendarLU\calendarDatabase with class loader sun.misc.Launcher$AppClassLoader@55f96302 
+Loaded from file:/C:/Users/yjaballi/Documents/Calendar/AcademicCalendarLU/dist/run739196976/lib/derby.jar
+java.vendor=Oracle Corporation
+java.runtime.version=1.8.0_181-b13
+user.dir=C:\Users\yjaballi\Documents\Calendar\AcademicCalendarLU
+os.name=Windows 10
+os.arch=amd64
+os.version=10.0
+derby.system.home=null
+Database Class Loader started - derby.database.classpath=''
