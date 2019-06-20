@@ -18,6 +18,7 @@ import academiccalendar.ui.listterms.ListTermsController;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.effects.JFXDepthManager;
+import edu.esprit.services.exeptions.ComposedIDExeption;
 import edu.esprit.utils.ServiceManager;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -79,6 +80,8 @@ import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import edu.esprit.models.Event;
+import java.text.ParseException;
 
 public class FXMLDocumentController implements Initializable {
     
@@ -534,10 +537,10 @@ public class FXMLDocumentController implements Initializable {
     
     private void populateMonthWithEvents(){
         
-        System.out.println(ServiceManager.getInstance().getUserService().findAll());
-  
+        List<Event> le;
+       
+        //le = ServiceManager.getInstance().getEventService().findAll();
         
-        /*
         
         // Get viewing calendar
         String calendarName = Model.getInstance().calendar_name;
@@ -547,17 +550,33 @@ public class FXMLDocumentController implements Initializable {
         int currentYear = Integer.parseInt(selectedYear.getValue());
         
         // Query to get ALL Events from the selected calendar!!
-        String getMonthEventsQuery = "SELECT * From EVENTS";
+        //String getMonthEventsQuery = "SELECT * From EVENTS";
         // Store the results here
-        ResultSet result = databaseHandler.executeQuery(getMonthEventsQuery);
+        //ResultSet result = databaseHandler.executeQuery(getMonthEventsQuery);
         
+       /* SimpleDateFormat formatter = new SimpleDateFormat("dd-MMM-yyyy");
+        String dateInString = "18-Jun-2018";
+        Date date =  null;
         try {
-             while(result.next()){
+            date = (Date)formatter.parse(dateInString);
+        } catch (ParseException ex) {
+            Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+        }*/
+       
+       
+                Date edate = new java.sql.Date(01-01-2018);    
+                edate.setYear(new java.util.Date().getYear());
+                //edate.setYear(118);
+             //for(Event e : le){
                  
                  // Get date for the event
-                 Date eventDate = result.getDate("EventDate");
-                 String eventDescript = result.getString("EventDescription");
-                 int eventTermID = result.getInt("TermID");
+                 //Date eventDate =  new java.sql.Date(e.getSessions().get(1).getStartTime().getTime());
+                 Date eventDate = edate;
+                 System.out.println(eventDate);
+                 //result.getDate("EventDate");
+                 //String eventDescript = e.getDescription();
+                 String eventDescript = "test youssef";
+                 int eventTermID = 1;
                  
                  // Check for year we have selected
                  if (currentYear == eventDate.toLocalDate().getYear()){
@@ -568,16 +587,14 @@ public class FXMLDocumentController implements Initializable {
                         int day = eventDate.toLocalDate().getDayOfMonth();
 
                         // Display decription of the event given it's day
-                        showDate(day, eventDescript, eventTermID);
+                        showDate(edate,day, eventDescript, eventTermID);
                     }         
                  }
-             }
-        } catch (SQLException ex) {
-             Logger.getLogger(AddEventController.class.getName()).log(Level.SEVERE, null, ex);
-        } */
+             //}
+        
     }
     
-    public void showDate(int dayNumber, String descript, int termID){
+    public void showDate(Date eventDate,int dayNumber, String descript, int termID){
         
         Image img = new Image(getClass().getClassLoader().getResourceAsStream("academiccalendar/ui/icons/icon2.png"));
         ImageView imgView = new ImageView();
@@ -610,6 +627,7 @@ public class FXMLDocumentController implements Initializable {
                     System.out.println(eventLbl.getAccessibleText());
                     
                     eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
+                        System.out.println("heeeey this is Event Date:   "+eventDate);
                         editEvent((VBox)eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText());
                         
                     });
@@ -727,7 +745,8 @@ public class FXMLDocumentController implements Initializable {
                 
                 
                 //Add event information in a row
-                data.add(new Event(tempTerm,eventDescript,eventDate));
+
+                //data.add(new Event(tempTerm,eventDescript,eventDate));
              
              }
         } catch (SQLException ex) {
@@ -1010,9 +1029,9 @@ public class FXMLDocumentController implements Initializable {
                 VBox vPane = new VBox();
                 vPane.getStyleClass().add("calendar_pane");
                 vPane.setMinWidth(weekdayHeader.getPrefWidth()/7);
-                
                 vPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e)->{
-                    addEvent(vPane);
+                    
+                    //addEvent(vPane);
                 });
                 
                 GridPane.setVgrow(vPane, Priority.ALWAYS);
@@ -1496,7 +1515,8 @@ public class FXMLDocumentController implements Initializable {
                 if (currentMonthIndex == eventMonth)
                 {
                     System.out.println("Yes they are the same. Now I will call showDate function");
-                    showDate(eventDay, eventDescript, eventTermID);
+                    //commented to use later by youssef jaballi
+                    //showDate(eventDay, eventDescript, eventTermID);
                 }
             }
         }
