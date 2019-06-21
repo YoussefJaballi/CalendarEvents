@@ -10,11 +10,11 @@ import academiccalendar.data.model.Model;
 import academiccalendar.database.DBHandler;
 import academiccalendar.ui.addcalendar.AddCalendarController;
 import academiccalendar.ui.addevent.AddEventController;
-import academiccalendar.ui.addrule.AddRuleController;
-import academiccalendar.ui.editevent.EditEventController;
+//import academiccalendar.ui.addrule.AddRuleController;
+//import academiccalendar.ui.editevent.EditEventController;
 import academiccalendar.ui.listcalendars.ListCalendarsController;
-import academiccalendar.ui.listrules.ListRulesController;
-import academiccalendar.ui.listterms.ListTermsController;
+//import academiccalendar.ui.listrules.ListRulesController;
+//import academiccalendar.ui.listterms.ListTermsController;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.effects.JFXDepthManager;
@@ -208,7 +208,8 @@ public class FXMLDocumentController implements Initializable {
            }
         }
     }    
-    
+    //commented by youssef jaballi
+    //this is where you can implement your logic when you click on event
     private void editEvent(VBox day, String descript, String termID) {
         
         // Store event fields in data singleton
@@ -229,8 +230,8 @@ public class FXMLDocumentController implements Initializable {
            stage.initModality(Modality.APPLICATION_MODAL); 
 
            // Pass main controller reference to view
-           EditEventController eventController = loader.getController();
-           eventController.setMainController(this);
+           //EditEventController eventController = loader.getController();
+           //eventController.setMainController(this);
            
            // Show the scene containing the root layout.
            Scene scene = new Scene(rootLayout);
@@ -240,7 +241,7 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }    
+    }   
     
     public void newCalendarEvent() {
         // New Calendar view
@@ -290,7 +291,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
-    private void manageTermsEvent() {
+    /*private void manageTermsEvent() {
         // Manage Terms view
          try {
             // Load root layout from fxml file.
@@ -301,8 +302,8 @@ public class FXMLDocumentController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL); 
 
             // Pass main controller reference to view
-            ListTermsController listController = loader.getController();
-            listController.setMainController(this);
+            //ListTermsController listController = loader.getController();
+            //listController.setMainController(this);
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -312,9 +313,9 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
     
-    private void listRulesEvent() {
+    /*private void listRulesEvent() {
         // List Rules view
          try {
             // Load root layout from fxml file.
@@ -325,8 +326,8 @@ public class FXMLDocumentController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL); 
 
             // Pass main controller reference to view
-            ListRulesController listController = loader.getController();
-            listController.setMainController(this);
+            //ListRulesController listController = loader.getController();
+            //listController.setMainController(this);
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             stage.setScene(scene);
@@ -335,9 +336,9 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
     
-    public void newRuleEvent() {
+    /*public void newRuleEvent() {
         // New Rule view
          try {
             // Load root layout from fxml file.
@@ -348,8 +349,8 @@ public class FXMLDocumentController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL); 
 
             // Pass main controller reference to view
-            AddRuleController ruleController = loader.getController();
-            ruleController.setMainController(this);
+            //AddRuleController ruleController = loader.getController();
+            //ruleController.setMainController(this);
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -358,7 +359,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }
+    }*/
     
     private void initializeMonthSelector(){
         
@@ -625,7 +626,8 @@ public class FXMLDocumentController implements Initializable {
                     // Save the term ID in accessible text
                     eventLbl.setAccessibleText(Integer.toString(termID));
                     System.out.println(eventLbl.getAccessibleText());
-                    
+                    //commented by youssef jaballi
+                     //this is where you can implement your logic when you click on event
                     eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
                         System.out.println("heeeey this is Event Date:   "+eventDate);
                         editEvent((VBox)eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText());
@@ -1031,7 +1033,7 @@ public class FXMLDocumentController implements Initializable {
                 vPane.setMinWidth(weekdayHeader.getPrefWidth()/7);
                 vPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e)->{
                     
-                    //addEvent(vPane);
+                    addEvent(vPane);
                 });
                 
                 GridPane.setVgrow(vPane, Priority.ALWAYS);
@@ -1122,12 +1124,12 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void manageRules(MouseEvent event) {
-        listRulesEvent();
+        //listRulesEvent();
     }
     
     @FXML
     private void newRule(MouseEvent event) {
-        newRuleEvent();
+        //newRuleEvent();
     }
 
     @FXML
@@ -1150,7 +1152,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void manageTermDates(MouseEvent event) {
-        manageTermsEvent();
+        //manageTermsEvent();
     }
 
     //******************************************************************************************
