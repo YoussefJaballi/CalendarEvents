@@ -221,7 +221,7 @@ public class FXMLDocumentController implements Initializable {
         Model.getInstance().event_year = Integer.parseInt(selectedYear.getValue());
         Model.getInstance().event_subject = descript;
         Model.getInstance().event_term_id = Integer.parseInt(termID);
-
+       
         // When user clicks on any date in the calendar, event editor window opens
         try {
            // Load root layout from fxml file.
@@ -575,6 +575,7 @@ public class FXMLDocumentController implements Initializable {
                  // Get date for the event
                  //Date eventDate =  new java.sql.Date(e.getSessions().get(1).getStartTime().getTime());
                 Date eventDate =  new java.sql.Date(e.getSessions().get(0).getStartTime().getTime());
+                System.out.println("this is date of clicked event:   "+eventDate);
                 String EventStartTime = new SimpleDateFormat("HH:mm").format(e.getSessions().get(0).getStartTime());
                 String EventEndTime = new SimpleDateFormat("HH:mm").format(e.getSessions().get(0).getEndTime());
                  //Date eventDate = edate;
@@ -634,7 +635,7 @@ public class FXMLDocumentController implements Initializable {
                     System.out.println(eventLbl.getAccessibleText());
                     
                     eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
-                        System.out.println("heeeey this is Event Date:   "+eventDate);
+                        
                         editEvent((VBox)eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText());
                         
                     });
@@ -1043,7 +1044,11 @@ public class FXMLDocumentController implements Initializable {
                 vPane.getStyleClass().add("calendar_pane");
                 vPane.setMinWidth(weekdayHeader.getPrefWidth()/7);
                 vPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e)->{
-                    
+                    Label lbl = (Label) vPane.getChildren().get(0);
+                 Integer day =  Integer.parseInt(lbl.getText());
+                    /*selectedYear.getValue();
+                    monthSelect.getSelectionModel().getSelectedItem();*/
+                    System.out.println("date is : "+day+"/"+Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem())+"/"+selectedYear.getValue());
                     addEvent(vPane);
                 });
                 
