@@ -10,11 +10,11 @@ import academiccalendar.data.model.Model;
 import academiccalendar.database.DBHandler;
 import academiccalendar.ui.addcalendar.AddCalendarController;
 import academiccalendar.ui.addevent.AddEventController;
-//import academiccalendar.ui.addrule.AddRuleController;
-//import academiccalendar.ui.editevent.EditEventController;
+import academiccalendar.ui.addrule.AddRuleController;
+import academiccalendar.ui.editevent.EditEventController;
 import academiccalendar.ui.listcalendars.ListCalendarsController;
-//import academiccalendar.ui.listrules.ListRulesController;
-//import academiccalendar.ui.listterms.ListTermsController;
+import academiccalendar.ui.listrules.ListRulesController;
+import academiccalendar.ui.listterms.ListTermsController;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.effects.JFXDepthManager;
@@ -82,6 +82,9 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import edu.esprit.models.Event;
 import java.text.ParseException;
+import javafx.scene.control.Tooltip;
+import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
 
 public class FXMLDocumentController implements Initializable {
     
@@ -208,8 +211,7 @@ public class FXMLDocumentController implements Initializable {
            }
         }
     }    
-    //commented by youssef jaballi
-    //this is where you can implement your logic when you click on event
+    
     private void editEvent(VBox day, String descript, String termID) {
         
         // Store event fields in data singleton
@@ -230,8 +232,8 @@ public class FXMLDocumentController implements Initializable {
            stage.initModality(Modality.APPLICATION_MODAL); 
 
            // Pass main controller reference to view
-           //EditEventController eventController = loader.getController();
-           //eventController.setMainController(this);
+           EditEventController eventController = loader.getController();
+           eventController.setMainController(this);
            
            // Show the scene containing the root layout.
            Scene scene = new Scene(rootLayout);
@@ -241,7 +243,7 @@ public class FXMLDocumentController implements Initializable {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-    }   
+    }    
     
     public void newCalendarEvent() {
         // New Calendar view
@@ -291,7 +293,7 @@ public class FXMLDocumentController implements Initializable {
         }
     }
     
-    /*private void manageTermsEvent() {
+    private void manageTermsEvent() {
         // Manage Terms view
          try {
             // Load root layout from fxml file.
@@ -302,8 +304,8 @@ public class FXMLDocumentController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL); 
 
             // Pass main controller reference to view
-            //ListTermsController listController = loader.getController();
-            //listController.setMainController(this);
+            ListTermsController listController = loader.getController();
+            listController.setMainController(this);
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -313,9 +315,9 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
     
-    /*private void listRulesEvent() {
+    private void listRulesEvent() {
         // List Rules view
          try {
             // Load root layout from fxml file.
@@ -326,8 +328,8 @@ public class FXMLDocumentController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL); 
 
             // Pass main controller reference to view
-            //ListRulesController listController = loader.getController();
-            //listController.setMainController(this);
+            ListRulesController listController = loader.getController();
+            listController.setMainController(this);
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             stage.setScene(scene);
@@ -336,9 +338,9 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
     
-    /*public void newRuleEvent() {
+    public void newRuleEvent() {
         // New Rule view
          try {
             // Load root layout from fxml file.
@@ -349,8 +351,8 @@ public class FXMLDocumentController implements Initializable {
             stage.initModality(Modality.APPLICATION_MODAL); 
 
             // Pass main controller reference to view
-            //AddRuleController ruleController = loader.getController();
-            //ruleController.setMainController(this);
+            AddRuleController ruleController = loader.getController();
+            ruleController.setMainController(this);
             
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -359,7 +361,7 @@ public class FXMLDocumentController implements Initializable {
         } catch (IOException ex) {
             Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
         }
-    }*/
+    }
     
     private void initializeMonthSelector(){
         
@@ -540,7 +542,7 @@ public class FXMLDocumentController implements Initializable {
         
         List<Event> le;
        
-        //le = ServiceManager.getInstance().getEventService().findAll();
+        le = ServiceManager.getInstance().getEventService().findAll();
         
         
         // Get viewing calendar
@@ -568,15 +570,19 @@ public class FXMLDocumentController implements Initializable {
                 Date edate = new java.sql.Date(01-01-2018);    
                 edate.setYear(new java.util.Date().getYear());
                 //edate.setYear(118);
-             //for(Event e : le){
-                 
+             for(Event e : le){
+                
                  // Get date for the event
                  //Date eventDate =  new java.sql.Date(e.getSessions().get(1).getStartTime().getTime());
-                 Date eventDate = edate;
-                 System.out.println(eventDate);
+                Date eventDate =  new java.sql.Date(e.getSessions().get(0).getStartTime().getTime());
+                String EventStartTime = new SimpleDateFormat("HH:mm").format(e.getSessions().get(0).getStartTime());
+                String EventEndTime = new SimpleDateFormat("HH:mm").format(e.getSessions().get(0).getEndTime());
+                 //Date eventDate = edate;
+                 //System.out.println(eventDate);
                  //result.getDate("EventDate");
                  //String eventDescript = e.getDescription();
-                 String eventDescript = "test youssef";
+                 String eventDescript = e.getDescription();
+                 System.out.println("event's description :   "+eventDescript);
                  int eventTermID = 1;
                  
                  // Check for year we have selected
@@ -588,14 +594,14 @@ public class FXMLDocumentController implements Initializable {
                         int day = eventDate.toLocalDate().getDayOfMonth();
 
                         // Display decription of the event given it's day
-                        showDate(edate,day, eventDescript, eventTermID);
+                        showDate(EventStartTime,EventEndTime,edate,day, eventDescript, eventTermID);
                     }         
                  }
-             //}
+             }
         
     }
     
-    public void showDate(Date eventDate,int dayNumber, String descript, int termID){
+    public void showDate(String EventStartTime,String EventEndTime,Date eventDate,int dayNumber, String descript, int termID){
         
         Image img = new Image(getClass().getClassLoader().getResourceAsStream("academiccalendar/ui/icons/icon2.png"));
         ImageView imgView = new ImageView();
@@ -626,12 +632,17 @@ public class FXMLDocumentController implements Initializable {
                     // Save the term ID in accessible text
                     eventLbl.setAccessibleText(Integer.toString(termID));
                     System.out.println(eventLbl.getAccessibleText());
-                    //commented by youssef jaballi
-                     //this is where you can implement your logic when you click on event
+                    
                     eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
                         System.out.println("heeeey this is Event Date:   "+eventDate);
                         editEvent((VBox)eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText());
                         
+                    });
+                   
+                    eventLbl.addEventHandler(MouseEvent.MOUSE_ENTERED, (e)->{
+                      Tooltip t=new Tooltip("from"+EventStartTime+"to"+EventEndTime);
+                      eventLbl.setTooltip(t);
+                       
                     });
                     
                     // Get term color from term's table
@@ -1124,12 +1135,12 @@ public class FXMLDocumentController implements Initializable {
     
     @FXML
     private void manageRules(MouseEvent event) {
-        //listRulesEvent();
+        listRulesEvent();
     }
     
     @FXML
     private void newRule(MouseEvent event) {
-        //newRuleEvent();
+        newRuleEvent();
     }
 
     @FXML
@@ -1152,7 +1163,7 @@ public class FXMLDocumentController implements Initializable {
 
     @FXML
     private void manageTermDates(MouseEvent event) {
-        //manageTermsEvent();
+        manageTermsEvent();
     }
 
     //******************************************************************************************

@@ -3,7 +3,7 @@ package academiccalendar.ui.editterm;
 
 import academiccalendar.data.model.Model;
 import academiccalendar.database.DBHandler;
-//import academiccalendar.ui.listterms.ListTermsController;
+import academiccalendar.ui.listterms.ListTermsController;
 import com.jfoenix.controls.JFXDatePicker;
 import java.net.URL;
 import java.time.LocalDate;
@@ -26,7 +26,7 @@ public class EditTermController implements Initializable {
     DBHandler databaseHandler;
     
     // Main Controller -------------------------------
-    //private ListTermsController listController;
+    private ListTermsController listController;
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -36,9 +36,9 @@ public class EditTermController implements Initializable {
     @FXML
     private JFXDatePicker termDatePicker;
     
-    /*public void setListController(ListTermsController listController) {
+    public void setListController(ListTermsController listController) {
         this.listController = listController ;
-    }*/
+    }
     // ------------------------------------------------
     
     // These fields are for mouse dragging of window
@@ -194,7 +194,7 @@ public class EditTermController implements Initializable {
                 alertMessage.showAndWait();
             
                 // Update list of terms in the table view to show new starting date
-                //listController.loadData();
+                listController.loadData();
             
             }
             else //if there is an error

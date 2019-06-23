@@ -5,8 +5,8 @@ package academiccalendar.ui.editrule;
 
 import academiccalendar.data.model.Model;
 import academiccalendar.database.DBHandler;
-//import academiccalendar.ui.editevent.EditEventController;
-//import academiccalendar.ui.listrules.ListRulesController;
+import academiccalendar.ui.editevent.EditEventController;
+import academiccalendar.ui.listrules.ListRulesController;
 import academiccalendar.ui.main.FXMLDocumentController;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
@@ -45,11 +45,11 @@ public class EditRuleController implements Initializable {
     // ------------------------------------------------
     
     // Main Controller -------------------------------
-    //private ListRulesController listController;
+    private ListRulesController listController;
     
-    /*public void setListController(ListRulesController listController) {
+    public void setListController(ListRulesController listController) {
         this.listController = listController ;
-    }*/
+    }
     // ------------------------------------------------
     
     @FXML
@@ -100,7 +100,7 @@ public class EditRuleController implements Initializable {
             //Show list of terms in the drop-down menu
             termSelect.setItems(termsList);
         } catch (SQLException ex) {
-            //Logger.getLogger(EditEventController.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(EditEventController.class.getName()).log(Level.SEVERE, null, ex);
         }   
         
         //Auto fill the edit window with the rule's current information
@@ -241,7 +241,7 @@ public class EditRuleController implements Initializable {
             alertMessage.showAndWait();
             
             //update view of the list of rules
-            //listController.loadData();
+            listController.loadData();
         }
         else //if there is an error
         {
