@@ -13,11 +13,20 @@ import edu.esprit.models.User;
  */
 public class UserManager {
      private static User user;
+     private static User RegisterUser;
     private UserManager(){   
     }
 
     public static User getUser() {
         return user;
+    }
+
+    public static void setRegisterUser(User RegisterUser) {
+        UserManager.RegisterUser = RegisterUser;
+    }
+
+    public static User getRegisterUser() {
+        return RegisterUser;
     }
 
     public static void setUser(User user) {

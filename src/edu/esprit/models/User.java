@@ -54,6 +54,10 @@ public class User extends Reportable {
         this.role = role;
     }
 
+    public User() {
+        
+    }
+
     public int getId() {
         return id;
     }

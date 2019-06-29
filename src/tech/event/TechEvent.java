@@ -19,7 +19,7 @@ public class TechEvent extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/edu/esprit/GUI/Login.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/edu/esprit/GUI/RegistrationForm1.fxml"));
         
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
