@@ -34,11 +34,11 @@ public class ParticipationService extends ServiceUtils implements IParticipation
     public List<Participation> findAll() {
         List<Participation> l = new ArrayList<>();
         try {
-            ResultSet rs = executeSelect("select * from event_comment where isdeleted=0");
+            ResultSet rs = executeSelect("select * from event_participation where isdeleted=0");
             while (rs.next()) {
                 Participation p = new Participation(
-                        rs.getInt("EVENT_COMMENT_USER_ID_FK"),
-                        rs.getInt("EVENT_COMMENT_EVENT_ID_FK"),
+                        rs.getInt("EVENT_ID_FK_PK"),
+                        rs.getInt("USER_ID_FK_PK"),
                         ServiceManager.getInstance().getRoleParticipationService().find(rs.getInt("ROLE_PARTICIPATION_FK"))
                 );
                 l.add(p);

@@ -83,13 +83,13 @@ public class RegistrationForm3Controller implements Initializable {
             UserManager.getRegisterUser().setEmail(EmailTxt.getText());
             //propriete telephone inexistante
             //UserManager.getRegisterUser().se
-            UserManager.getRegisterUser().setEntrepriseID(e);
-            /*RegistrationForm3AnchorPane.getChildren().clear();
+            UserManager.getRegisterUser().setEntreprise(e);
+            RegistrationForm3AnchorPane.getChildren().clear();
             AnchorPane content = null;
-            content = FXMLLoader.load(getClass().getResource("RegistrationForm3.fxml"));
-            RegistrationForm3AnchorPane.getChildren().add(content);*/
+            content = FXMLLoader.load(getClass().getResource("RegistrationForm4.fxml"));
+            RegistrationForm3AnchorPane.getChildren().add(content);
             System.out.println("user enterprise:  "+UserManager.getRegisterUser().getEntreprise());
-            System.out.println("user details :   "+UserManager.getRegisterUser());
+            System.out.println("user details interface 3:   "+UserManager.getRegisterUser());
         }
     }
     

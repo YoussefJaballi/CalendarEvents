@@ -70,7 +70,8 @@ public class UserService extends ServiceUtils implements IUserService {
                         new SimpleDateFormat("dd/mm/yy").parse(rs.getString("USER_BIRTHDATE")),
                         rs.getString("USER_ADRESS"), rs.getString("USER_PHOTO_URL"),
                 ServiceManager.getInstance().getEntrepriseService().find(rs.getInt("USER_ENTREPRISE_ID_FK")),
-                ServiceManager.getInstance().getRoleUserService().find(rs.getInt("USER_ROLE_ID_FK"))
+                ServiceManager.getInstance().getRoleUserService().find(rs.getInt("USER_ROLE_ID_FK")),
+                 rs.getBoolean("USER_ACTIVATED")
                 );
                
                 user.setReports(ServiceManager.getInstance().getReportService().findByUser(rs.getInt("USER_ID_PK")));
@@ -95,7 +96,8 @@ public class UserService extends ServiceUtils implements IUserService {
                 + "`USER_ADRESS`,"
                 + "`USER_PHOTO_URL`,"
                 + "`USER_ENTREPRISE_ID_FK`,"
-                + "`USER_ROLE_ID_FK`)"
+                + "`USER_ROLE_ID_FK`"
+                + ")"
                 + " values ("
                 + "'" + obj.getEmail()
                 + "','" + obj.getName()
@@ -108,7 +110,7 @@ public class UserService extends ServiceUtils implements IUserService {
                 + "'," + obj.getEntreprise().getId()
                 + "," + obj.getRole().getId()
                 + ");";
-
+              System.out.println(sql);
         boolean r = execute(sql);
 
         for (Participation p : obj.getParticipations()) {

@@ -90,11 +90,11 @@ public class RegistrationForm2Controller implements Initializable {
             UserManager.getRegisterUser().setLastName(PrenomTxt.getText());
             UserManager.getRegisterUser().setBirthday(java.sql.Date.valueOf(DateNaissanceDate.getValue()));
             UserManager.getRegisterUser().setPhotoURL(FileName);
-            /*RegistrationForm2AnchorPane.getChildren().clear();
+            RegistrationForm2AnchorPane.getChildren().clear();
             AnchorPane content = null;
             content = FXMLLoader.load(getClass().getResource("RegistrationForm3.fxml"));
-            RegistrationForm2AnchorPane.getChildren().add(content);*/
-             FXMLLoader loader = new FXMLLoader();
+            RegistrationForm2AnchorPane.getChildren().add(content);
+            /*FXMLLoader loader = new FXMLLoader();
             loader.setLocation(getClass().getResource("RegistrationForm3.fxml"));
             AnchorPane rootLayout = (AnchorPane) loader.load();
             Stage stage = new Stage(StageStyle.DECORATED);
@@ -105,7 +105,7 @@ public class RegistrationForm2Controller implements Initializable {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             stage.setScene(scene);
-            stage.show();
+            stage.show();*/
             
         }
     }

@@ -8,6 +8,9 @@ package edu.esprit.models;
 import java.util.Date;
 import java.util.List;
 
+
+
+//USER_ACTIVATED
 /**
  *
  * @author azer
@@ -20,14 +23,34 @@ public class User extends Reportable {
     private String lastName;
     private String login;
     private String password;
+
+    
     private Date birthday;
     private String adress;
     private String photoURL;
+    private boolean userActivated;
     private Entreprise entreprise;
     private RoleUser role;
+
+    
+    public void setUserActivated(boolean userActivated) {
+        this.userActivated = userActivated;
+    }
+
+    public void setEntreprise(Entreprise entreprise) {
+        this.entreprise = entreprise;
+    }
+
+    public void setRole(RoleUser role) {
+        this.role = role;
+    }
+    
+    public boolean isUserActivated() {
+        return userActivated;
+    }
     List<Participation> participations;
 
-    public User(int id, String email, String name, String lastName, String login, String password, Date birthday, String adress, String photoURL, Entreprise entreprise, RoleUser role) {
+    public User(int id, String email, String name, String lastName, String login, String password, Date birthday, String adress, String photoURL, Entreprise entreprise, RoleUser role,boolean userActivated) {
         this.id = id;
         this.email = email;
         this.name = name;
@@ -39,9 +62,10 @@ public class User extends Reportable {
         this.photoURL = photoURL;
         this.entreprise = entreprise;
         this.role = role;
+        this.userActivated = userActivated;
     }
 
-    public User(String email, String name, String lastName, String login, String password, Date birthday, String adress, String photoURL, Entreprise entreprise, RoleUser role) {
+    public User(String email, String name, String lastName, String login, String password, Date birthday, String adress, String photoURL, Entreprise entreprise, RoleUser role,boolean userActivated) {
         this.email = email;
         this.name = name;
         this.lastName = lastName;
@@ -52,6 +76,7 @@ public class User extends Reportable {
         this.photoURL = photoURL;
         this.entreprise = entreprise;
         this.role = role;
+        this.userActivated = userActivated;
     }
 
     public User() {
@@ -156,7 +181,7 @@ public class User extends Reportable {
 
     @Override
     public String toString() {
-        return "User{" + "id=" + id + ", email=" + email + ", name=" + name + ", lastName=" + lastName + ", login=" + login + ", password=" + password + ", birthday=" + birthday.getDate()+"/"+(birthday.getMonth()+1)+"/"+(birthday.getYear()-100)+", adress=" + adress + ", photoURL=" + photoURL + ", entreprise=" + entreprise + ", role=" + role + ", participations=" + participations + '}';
+        return "User{" + "id=" + id + ", email=" + email + ", name=" + name + ", lastName=" + lastName + ", login=" + login + ", password=" + password + ", birthday=" + birthday.getDate()+"/"+(birthday.getMonth()+1)+"/"+(birthday.getYear()-100)+", adress=" + adress + ", photoURL=" + photoURL + ", userActivated=" + userActivated + ", entreprise=" + entreprise + ", role=" + role + ", participations=" + participations + '}';
     }
 
 }

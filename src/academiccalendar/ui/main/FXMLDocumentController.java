@@ -18,6 +18,8 @@ import academiccalendar.ui.listterms.ListTermsController;
 
 import com.jfoenix.controls.*;
 import com.jfoenix.effects.JFXDepthManager;
+import edu.esprit.GUI.EventListController;
+import edu.esprit.GUI.HomeController;
 import edu.esprit.services.exeptions.ComposedIDExeption;
 import edu.esprit.utils.ServiceManager;
 import java.io.File;
@@ -82,6 +84,7 @@ import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import edu.esprit.models.Event;
 import java.text.ParseException;
+import javafx.scene.Parent;
 import javafx.scene.control.Tooltip;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -155,6 +158,8 @@ public class FXMLDocumentController implements Initializable {
     public static boolean workingOnCalendar = false;
     public static boolean checkBoxesHaveBeenClicked = false;
     
+   
+    
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -221,7 +226,7 @@ public class FXMLDocumentController implements Initializable {
         Model.getInstance().event_year = Integer.parseInt(selectedYear.getValue());
         Model.getInstance().event_subject = descript;
         Model.getInstance().event_term_id = Integer.parseInt(termID);
-       
+
         // When user clicks on any date in the calendar, event editor window opens
         try {
            // Load root layout from fxml file.
@@ -575,7 +580,6 @@ public class FXMLDocumentController implements Initializable {
                  // Get date for the event
                  //Date eventDate =  new java.sql.Date(e.getSessions().get(1).getStartTime().getTime());
                 Date eventDate =  new java.sql.Date(e.getSessions().get(0).getStartTime().getTime());
-                System.out.println("this is date of clicked event:   "+eventDate);
                 String EventStartTime = new SimpleDateFormat("HH:mm").format(e.getSessions().get(0).getStartTime());
                 String EventEndTime = new SimpleDateFormat("HH:mm").format(e.getSessions().get(0).getEndTime());
                  //Date eventDate = edate;
@@ -635,7 +639,7 @@ public class FXMLDocumentController implements Initializable {
                     System.out.println(eventLbl.getAccessibleText());
                     
                     eventLbl.addEventHandler(MouseEvent.MOUSE_PRESSED, (e)->{
-                        
+                        System.out.println("heeeey this is Event Date:   "+eventDate);
                         editEvent((VBox)eventLbl.getParent(), eventLbl.getText(), eventLbl.getAccessibleText());
                         
                     });
@@ -1032,6 +1036,7 @@ public class FXMLDocumentController implements Initializable {
     }
    
     public void initializeCalendarGrid(){
+        //AnchorPane content = null;
         
         // Go through each calendar grid location, or each "day" (7x6)
         int rows = 6;
@@ -1044,12 +1049,26 @@ public class FXMLDocumentController implements Initializable {
                 vPane.getStyleClass().add("calendar_pane");
                 vPane.setMinWidth(weekdayHeader.getPrefWidth()/7);
                 vPane.addEventHandler(MouseEvent.MOUSE_CLICKED, (e)->{
-                    Label lbl = (Label) vPane.getChildren().get(0);
+                     Label lbl = (Label) vPane.getChildren().get(0);
                  Integer day =  Integer.parseInt(lbl.getText());
-                    /*selectedYear.getValue();
-                    monthSelect.getSelectionModel().getSelectedItem();*/
-                    System.out.println("date is : "+day+"/"+Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem())+"/"+selectedYear.getValue());
-                    addEvent(vPane);
+                    String dateEvent = day+"-"+Model.getInstance().getMonthIndex(monthSelect.getSelectionModel().getSelectedItem())+"-"+selectedYear.getValue();
+                    
+             AnchorPane content = null;
+             rootPane.getChildren().clear();
+                    try {
+                        FXMLLoader loader = new FXMLLoader(getClass().getResource("/edu/esprit/GUI/EventList.fxml"));
+                        Parent root = loader.load();
+                        EventListController controller = loader.<EventListController>getController();
+                        controller.setFilter("dssd");
+                        content = (AnchorPane) root; 
+                        content = FXMLLoader.load(getClass().getResource("/edu/esprit/GUI/EventList.fxml"));
+                    } catch (IOException ex) {
+                        Logger.getLogger(FXMLDocumentController.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+            rootPane.getChildren().add(content);
+            
+             
+             //addEvent(vPane);
                 });
                 
                 GridPane.setVgrow(vPane, Priority.ALWAYS);

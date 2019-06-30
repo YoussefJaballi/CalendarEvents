@@ -57,4 +57,13 @@ public class EventListController implements Initializable {
         this.titleColumn.setCellValueFactory(new PropertyValueFactory<Event, String>("title"));
     }
 
+    
+    public void setFilter(String filter)
+    {
+        
+        this.filterField.setText(filter);
+        
+    }
+    
+    
 }
