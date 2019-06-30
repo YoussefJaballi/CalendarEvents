@@ -7,12 +7,8 @@ package edu.esprit.GUI;
 
 import academiccalendar.ui.listcalendars.ListCalendarsController;
 import edu.esprit.utils.UserManager;
-import java.io.BufferedReader;
-import java.io.DataOutputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -34,7 +30,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
@@ -103,11 +98,15 @@ public class RegistrationForm2Controller implements Initializable {
             loader.setLocation(getClass().getResource("RegistrationForm3.fxml"));
             AnchorPane rootLayout = (AnchorPane) loader.load();
             Stage stage = new Stage(StageStyle.DECORATED);
-            stage.initModality(Modality.WINDOW_MODAL);
+            stage.initModality(Modality.WINDOW_MODAL); 
+
+           
+            
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             stage.setScene(scene);
             stage.show();
+            
         }
     }
 
@@ -118,8 +117,7 @@ public class RegistrationForm2Controller implements Initializable {
         photo = fileChooser.showOpenDialog(new Stage());
         FileName = photo.getAbsolutePath();
         //System.out.println(photo.getAbsolutePath());
-        //sendFileToHTTP(photo,FileName);
-        sendImageToHTTP(photo);
+        sendFileToHTTP(photo,FileName);
     }
     public static String sendFileToHTTP(File file, String fileName) throws MalformedURLException, IOException {
 
@@ -158,64 +156,4 @@ public class RegistrationForm2Controller implements Initializable {
         return (newName);
     }
     
-    private void configureFileChooser(final FileChooser fileChooser) {                           
-        fileChooser.setTitle("Open Resource File");
-        fileChooser.getExtensionFilters().addAll(
-                 new ExtensionFilter("Text Files", "*.txt"),
-                 new ExtensionFilter("All Files", "*.*"));
-        fileChooser.setInitialDirectory(
-            new File(System.getProperty("user.home"))
-        ); 
-    }
-
-    private int sendImageToHTTP(File file) {
-        int responseCode = 0;
-        try {
-            URL url = new URL("http://localhost/pidev/services/uploadImage.php");
-            HttpURLConnection conn = (HttpURLConnection) url.openConnection(); 
-            //Set Request Type to POST
-            conn.setRequestMethod("POST");
-            //Send text data
-            conn.setRequestProperty("Content-Type", "text/plain");
-
-            //Replace the file-path with your local file-path
-            BufferedReader br = new BufferedReader(new FileReader(file));
-            StringBuffer data = new StringBuffer();
-            String tempLine;
-            while ((tempLine = br.readLine()) != null) {
-                data.append(tempLine);
-            }
-            br.close();
-
-            // Send post request
-            conn.setDoOutput(true);
-            DataOutputStream wr = new DataOutputStream(conn.getOutputStream());
-            wr.writeBytes(data.toString());
-            wr.flush();
-            wr.close();
-
-            //Fetch Response Code
-            responseCode = conn.getResponseCode();
-
-            //Read the response
-            BufferedReader in = new BufferedReader(
-                    new InputStreamReader(conn.getInputStream()));
-            String inputLine;
-            StringBuffer response = new StringBuffer();
-
-            while ((inputLine = in.readLine()) != null) {
-                response.append(inputLine);
-            }
-            in.close();
-
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-        //Return the response code
-        return responseCode;
-    }
-
-    private void setFile(File tempFile) {
-        this.photo = tempFile;
-    }
 }
